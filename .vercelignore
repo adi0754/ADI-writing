@@ -1,0 +1,28 @@
+# Ignore development files
+node_modules
+dist
+.git
+.gitignore
+.env.local
+.env.*.local
+
+# Ignore documentation during build
+*.md
+!README.md
+
+# Ignore source maps in production
+*.map
+
+# Ignore test files
+.test
+*.test.ts
+*.spec.ts
+__tests__
+__mocks__
+
+# Ignore IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
