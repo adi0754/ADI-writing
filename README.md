@@ -2,6 +2,10 @@
 
 一个开源免费的H5 AI写作网页，提供小说内容扩写和润色功能。
 
+## 一键部署
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fh5-ai-writer&env=OPENAI_API_KEY,GEMINI_API_KEY,DEEPSEEK_API_KEY)
+
 ## 功能特性
 
 - ✨ **小说内容扩写** - 智能扩展您的创意内容
@@ -10,10 +14,11 @@
   - OpenAI (GPT-3.5 Turbo)
   - Google Gemini (Google AI Studio)
   - DeepSeek
-- 🔐 **本地API密钥存储** - 您的密钥仅保存在本地浏览器中
+- 🔐 **后端API保护** - API密钥存储在服务器端，安全性更高
 - 📝 **文档管理** - 创建、编辑和管理多个文档
 - 🎨 **简洁易用的界面** - 现代化的UI设计
 - 🌐 **完全开源** - 免费使用和修改
+- 🚀 **Vercel部署** - 一键部署到生产环境
 
 ## 快速开始
 
@@ -110,10 +115,12 @@ npm run type-check
 
 ## 数据隐私
 
-- 🔒 您的API密钥仅保存在本地浏览器中
-- 🔒 文档内容完全保存在本地
-- 🔒 无服务器端数据存储
-- 🔒 使用浏览器的localStorage机制
+- 🔒 您的API密钥存储在 Vercel 后端服务器环境变量中（可选）
+- 🔒 或在本地浏览器中存储（如使用客户端模式）
+- 🔒 文档内容完全保存在本地浏览器
+- 🔒 无中央数据库存储用户数据
+- 🔒 使用浏览器的 localStorage 机制
+- 🔒 所有通信使用 HTTPS 加密
 
 ## 浏览器兼容性
 
@@ -158,10 +165,43 @@ h5-ai-writer/
 
 MIT License - 详见 LICENSE 文件
 
+## 部署
+
+### Vercel 一键部署（推荐）
+
+1. 点击上方的 "Deploy with Vercel" 按钮
+2. 或访问 https://vercel.com/new
+3. 连接您的 GitHub 账户
+4. 导入此项目
+5. 添加环境变量（API 密钥）
+6. 点击部署
+
+详细步骤请查看 [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+
+### 其他部署选项
+
+- GitHub Pages - 静态托管
+- Netlify - 全栈部署
+- 自己的服务器 - Docker 容器化
+
+详见 [DEPLOYMENT.md](DEPLOYMENT.md)
+
+## 架构
+
+本项目采用前后分离架构：
+
+- **前端**: Vue 3 + TypeScript (部署在 CDN)
+- **后端**: Serverless Functions (处理 AI API 调用)
+
+详见 [BACKEND_ARCHITECTURE.md](BACKEND_ARCHITECTURE.md)
+
 ## 常见问题
 
-### Q: API密钥会被上传到服务器吗？
-A: 不会。您的API密钥仅保存在本地浏览器中。
+### Q: 可以在 Vercel 免费计划上运行吗？
+A: 是的，完全可以。Vercel 免费计划包括足够的 Serverless Functions 调用。
+
+### Q: 后端会存储我的数据吗？
+A: 不会。后端只转发请求到 AI API，不存储任何用户数据。
 
 ### Q: 我的文档会被保存吗？
 A: 您的所有文档都保存在本地浏览器中。清除浏览器缓存会导致数据丢失。
@@ -170,10 +210,13 @@ A: 您的所有文档都保存在本地浏览器中。清除浏览器缓存会�
 A: 您可以直接复制和粘贴文档内容。
 
 ### Q: 支持离线使用吗？
-A: 应用本身可以离线使用，但处理内容需要网络连接和有效的API密钥。
+A: 前端可以离线使用，但处理内容需要网络连接和有效的 API 密钥。
 
-### Q: 如何修改提示词？
-A: 您可以编辑 `src/services/ai-api.ts` 文件中的系统提示词。
+### Q: 可以自定义系统提示词吗？
+A: 是的，可以编辑 `api/process.ts` 文件中的提示词（需要 fork 项目）。
+
+### Q: API 密钥在哪里？
+A: 在 Vercel 部署时，密钥存储在 Vercel 环境变量中（更安全）。在本地开发时，存储在浏览器本地存储中。
 
 ## 联系方式
 

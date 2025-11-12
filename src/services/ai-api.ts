@@ -1,145 +1,126 @@
 import axios from 'axios'
 import type { AIProvider, AIRequest, AIResponse } from '../types'
-import {
-  SYSTEM_PROMPT,
-  EXPAND_MODE_PROMPT,
-  POLISH_MODE_PROMPT,
-  API_ENDPOINTS,
-  OPENAI_CONFIG,
-  GEMINI_CONFIG,
-  DEEPSEEK_CONFIG,
-} from '../config/constants'
+
+// Determine the API base URL based on environment
+const getApiBaseUrl = (): string => {
+  if (typeof window === 'undefined') {
+    // Server-side
+    return process.env.VITE_API_URL || 'http://localhost:3000'
+  }
+
+  // Client-side
+  if (process.env.VITE_API_URL) {
+    return process.env.VITE_API_URL
+  }
+
+  // Default to current domain's API
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:5173'
+  }
+
+  // Use current domain for production
+  return window.location.origin
+}
 
 class AIApiService {
-  private openaiClient: any
-
-  async callOpenAI(apiKey: string, content: string, mode: 'expand' | 'polish'): Promise<string> {
-    try {
-      const modePrompt = mode === 'expand' ? EXPAND_MODE_PROMPT : POLISH_MODE_PROMPT
-
-      const response = await axios.post(
-        API_ENDPOINTS.OPENAI,
-        {
-          model: OPENAI_CONFIG.model,
-          messages: [
-            {
-              role: 'system',
-              content: SYSTEM_PROMPT,
-            },
-            {
-              role: 'user',
-              content: `${modePrompt}\n\n内容：\n${content}`,
-            },
-          ],
-          temperature: OPENAI_CONFIG.temperature,
-          max_tokens: OPENAI_CONFIG.maxTokens,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-
-      return response.data.choices[0].message.content
-    } catch (error) {
-      throw new Error(`OpenAI API 错误: ${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
-
-  async callGemini(apiKey: string, content: string, mode: 'expand' | 'polish'): Promise<string> {
-    try {
-      const modePrompt = mode === 'expand' ? EXPAND_MODE_PROMPT : POLISH_MODE_PROMPT
-
-      const response = await axios.post(
-        `${API_ENDPOINTS.GEMINI}?key=${apiKey}`,
-        {
-          contents: [
-            {
-              parts: [
-                {
-                  text: `${SYSTEM_PROMPT}\n\n${modePrompt}\n\n内容：\n${content}`,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: GEMINI_CONFIG.temperature,
-            maxOutputTokens: GEMINI_CONFIG.maxOutputTokens,
-          },
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-
-      const candidates = response.data.candidates
-      if (candidates && candidates.length > 0) {
-        const resultContent = candidates[0].content.parts[0].text
-        return resultContent
-      }
-      throw new Error('No content in response')
-    } catch (error) {
-      throw new Error(`Gemini API 错误: ${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
-
-  async callDeepSeek(apiKey: string, content: string, mode: 'expand' | 'polish'): Promise<string> {
-    try {
-      const modePrompt = mode === 'expand' ? EXPAND_MODE_PROMPT : POLISH_MODE_PROMPT
-
-      const response = await axios.post(
-        API_ENDPOINTS.DEEPSEEK,
-        {
-          model: DEEPSEEK_CONFIG.model,
-          messages: [
-            {
-              role: 'system',
-              content: SYSTEM_PROMPT,
-            },
-            {
-              role: 'user',
-              content: `${modePrompt}\n\n内容：\n${content}`,
-            },
-          ],
-          temperature: DEEPSEEK_CONFIG.temperature,
-          max_tokens: DEEPSEEK_CONFIG.maxTokens,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-
-      return response.data.choices[0].message.content
-    } catch (error) {
-      throw new Error(`DeepSeek API 错误: ${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
+  private apiBaseUrl: string = getApiBaseUrl()
 
   async processContent(request: AIRequest): Promise<AIResponse> {
-    let result: string
+    try {
+      // Use backend API instead of direct API calls
+      const backendUrl = `${this.apiBaseUrl}/api/process`
 
-    switch (request.provider) {
-      case 'openai':
-        result = await this.callOpenAI(request.apiKey, request.content, request.mode)
-        break
-      case 'gemini':
-        result = await this.callGemini(request.apiKey, request.content, request.mode)
-        break
-      case 'deepseek':
-        result = await this.callDeepSeek(request.apiKey, request.content, request.mode)
-        break
-      default:
-        throw new Error('Unknown AI provider')
+      const response = await axios.post(
+        backendUrl,
+        {
+          provider: request.provider,
+          content: request.content,
+          mode: request.mode,
+          apiKey: request.apiKey,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          timeout: 60000, // 60 second timeout
+        }
+      )
+
+      return {
+        result: response.data.result,
+        provider: response.data.provider,
+        timestamp: response.data.timestamp,
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status
+        const data = error.response?.data
+
+        let errorMessage = 'API 请求失败'
+
+        if (status === 401 || status === 403) {
+          errorMessage = data?.message || 'API 密钥无效或未授权'
+        } else if (status === 429) {
+          errorMessage = 'API 请求过于频繁，请稍后再试'
+        } else if (status === 400) {
+          errorMessage = data?.message || '请求参数无效'
+        } else if (status === 504 || error.code === 'ECONNABORTED') {
+          errorMessage = '请求超时，请检查网络连接'
+        } else if (status === 503) {
+          errorMessage = 'AI 服务暂时不可用，请稍后再试'
+        } else if (error.message.includes('ENOTFOUND') || error.message.includes('ECONNREFUSED')) {
+          errorMessage = '无法连接到 API 服务'
+        } else {
+          errorMessage = data?.message || error.message || '处理失败'
+        }
+
+        throw new Error(errorMessage)
+      }
+
+      throw new Error(error instanceof Error ? error.message : '未知错误')
     }
+  }
 
-    return { result }
+  async getProviders() {
+    try {
+      const backendUrl = `${this.apiBaseUrl}/api/providers`
+
+      const response = await axios.get(backendUrl, {
+        timeout: 10000,
+      })
+
+      return response.data.providers
+    } catch (error) {
+      console.error('Failed to fetch providers:', error)
+      // Return default providers if backend is not available
+      return [
+        {
+          id: 'openai',
+          name: 'OpenAI',
+          description: 'GPT-3.5 Turbo',
+          url: 'https://platform.openai.com/api-keys',
+          status: 'active',
+        },
+        {
+          id: 'gemini',
+          name: 'Google Gemini',
+          description: 'Google AI Studio',
+          url: 'https://aistudio.google.com/app/apikey',
+          status: 'active',
+        },
+        {
+          id: 'deepseek',
+          name: 'DeepSeek',
+          description: 'DeepSeek API',
+          url: 'https://platform.deepseek.com/api',
+          status: 'active',
+        },
+      ]
+    }
+  }
+
+  setApiBaseUrl(url: string): void {
+    this.apiBaseUrl = url
   }
 }
 
