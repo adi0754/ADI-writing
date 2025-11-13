@@ -109,9 +109,9 @@ async function listGeminiModels(apiKey: string): Promise<ModelInfo[]> {
             }
           ),
         {
-          maxRetries: 3,
-          initialDelayMs: 1000,
-          maxDelayMs: 15000,
+          maxRetries: 5,
+          initialDelayMs: 2000,
+          maxDelayMs: 30000,
         }
       )
     } catch (error) {
@@ -128,9 +128,9 @@ async function listGeminiModels(apiKey: string): Promise<ModelInfo[]> {
             }
           ),
         {
-          maxRetries: 3,
-          initialDelayMs: 1000,
-          maxDelayMs: 15000,
+          maxRetries: 5,
+          initialDelayMs: 2000,
+          maxDelayMs: 30000,
         }
       )
     }
