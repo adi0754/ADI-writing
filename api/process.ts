@@ -161,9 +161,9 @@ async function callOpenAI(
         }
       ),
     {
-      maxRetries: 3,
-      initialDelayMs: 1000,
-      maxDelayMs: 15000,
+      maxRetries: 5,
+      initialDelayMs: 2000,
+      maxDelayMs: 30000,
     }
   ).then(response => response.data.choices[0].message.content)
 }
@@ -204,9 +204,9 @@ async function callGemini(
         }
       ),
     {
-      maxRetries: 3,
-      initialDelayMs: 1000,
-      maxDelayMs: 15000,
+      maxRetries: 5,
+      initialDelayMs: 2000,
+      maxDelayMs: 30000,
     }
   )
 
@@ -253,9 +253,9 @@ async function callDeepSeek(
         }
       ),
     {
-      maxRetries: 3,
-      initialDelayMs: 1000,
-      maxDelayMs: 15000,
+      maxRetries: 5,
+      initialDelayMs: 2000,
+      maxDelayMs: 30000,
     }
   ).then(response => response.data.choices[0].message.content)
 }
@@ -297,9 +297,9 @@ async function callThirdParty(
         }
       ),
     {
-      maxRetries: 3,
-      initialDelayMs: 1000,
-      maxDelayMs: 15000,
+      maxRetries: 5,
+      initialDelayMs: 2000,
+      maxDelayMs: 30000,
     }
   ).then(response => response.data.choices[0].message.content)
 }
