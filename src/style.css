@@ -32,40 +32,73 @@ body {
 a {
   color: var(--primary-color);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   color: var(--primary-dark);
 }
 
+a:active {
+  opacity: 0.7;
+}
+
 button {
   cursor: pointer;
   border: none;
   font-family: inherit;
+  font-size: inherit;
   transition: all 0.3s ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 input,
 textarea {
   font-family: inherit;
   font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-/* Scrollbar styling */
+/* Focus visible for better accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling - Apple refined */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-color);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: rgba(0, 0, 0, 0.3);
+  background-clip: padding-box;
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(0, 122, 255, 0.25);
+  color: var(--text-color);
+}
+
+/* Placeholder styling */
+::placeholder {
+  color: var(--text-lighter);
+  opacity: 1;
 }
