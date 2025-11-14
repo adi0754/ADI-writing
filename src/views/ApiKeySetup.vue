@@ -151,35 +151,88 @@ const handleSubmit = () => {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 50%, #f5f5f7 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.setup-container::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 122, 255, 0.05) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+  z-index: 0;
+}
+
+.setup-container::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(52, 199, 89, 0.03) 0%, transparent 70%);
+  bottom: -50px;
+  right: -50px;
+  z-index: 0;
 }
 
 .setup-card {
   background: var(--bg-white);
-  border-radius: 20px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 10;
 }
 
 .header {
-  background: linear-gradient(180deg, #007aff 0%, #0051cc 100%);
+  background: linear-gradient(135deg, #007aff 0%, #0051cc 100%);
   color: white;
-  padding: 40px 30px;
+  padding: 50px 30px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+  top: 0;
+  left: 0;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, 20px); }
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-  font-weight: 700;
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
 }
 
 .header p {
   font-size: 1.1rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
 }
 
 .content {
@@ -187,24 +240,26 @@ const handleSubmit = () => {
 }
 
 .info-box {
-  background: rgba(0, 122, 255, 0.08);
-  border-left: none;
-  border-radius: 12px;
-  padding: 15px 20px;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 122, 255, 0.05) 100%);
+  border-radius: 14px;
+  padding: 18px 22px;
   margin-bottom: 30px;
-  border: 1px solid rgba(0, 122, 255, 0.15);
+  border: 1px solid rgba(0, 122, 255, 0.2);
+  backdrop-filter: blur(4px);
 }
 
 .info-box h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.15rem;
+  margin-bottom: 12px;
   color: var(--text-color);
+  font-weight: 700;
 }
 
 .info-box p {
   color: var(--text-light);
-  line-height: 1.6;
-  margin-bottom: 8px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
 .form {
@@ -217,26 +272,34 @@ const handleSubmit = () => {
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+  margin-bottom: 10px;
+  font-weight: 700;
   color: var(--text-color);
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
 }
 
 .input {
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border-light);
+  border-radius: 12px;
   font-size: 1rem;
+  font-weight: 500;
   transition: all 0.3s ease;
-  background-color: #f5f5f7;
+  background-color: #f9f9fb;
+}
+
+.input:hover {
+  border-color: rgba(0, 122, 255, 0.3);
+  background-color: var(--bg-white);
 }
 
 .input:focus {
   outline: none;
   border-color: var(--primary-color);
   background-color: var(--bg-white);
-  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12), inset 0 0 0 0.5px var(--primary-color);
 }
 
 .form-group small {
@@ -247,26 +310,35 @@ const handleSubmit = () => {
 }
 
 .provider-info {
-  background: #f5f5f7;
-  padding: 15px;
+  background: linear-gradient(135deg, #f9f9fb 0%, #f5f5f7 100%);
+  padding: 16px 18px;
   border-radius: 12px;
   margin-bottom: 20px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(2px);
 }
 
 .provider-info .info h4 {
   margin-bottom: 8px;
   color: var(--text-color);
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .provider-info .info p {
   color: var(--text-light);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .provider-info a {
   color: var(--primary-color);
   font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.provider-info a:hover {
+  opacity: 0.8;
 }
 
 .checkbox-group {
@@ -294,49 +366,67 @@ const handleSubmit = () => {
 
 .submit-btn {
   width: 100%;
-  padding: 14px;
-  background: linear-gradient(180deg, #007aff 0%, #0051cc 100%);
+  padding: 15px;
+  background: linear-gradient(135deg, #007aff 0%, #0051cc 100%);
   color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 14px;
   border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 122, 255, 0.35);
+  letter-spacing: 0.4px;
 }
 
 .submit-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 122, 255, 0.45);
 }
 
 .submit-btn:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .submit-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .features {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-light);
   padding-top: 30px;
+  margin-top: 30px;
 }
 
 .features h3 {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+  font-size: 1rem;
+  margin-bottom: 16px;
   color: var(--text-color);
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
 .features ul {
   list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .features li {
-  padding: 8px 0;
+  padding: 10px 12px;
   color: var(--text-light);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  background: rgba(0, 122, 255, 0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 122, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.features li:hover {
+  background: rgba(0, 122, 255, 0.08);
+  border-color: rgba(0, 122, 255, 0.2);
 }
 </style>
