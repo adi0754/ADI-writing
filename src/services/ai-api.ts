@@ -1,16 +1,31 @@
 import axios from 'axios'
 import type { AIRequest, AIResponse } from '../types'
 
+const getEnvApiUrl = (): string | undefined => {
+  // Prefer Vite runtime vars exposed via import.meta.env
+  if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL
+  }
+
+  // Fallback for Node/server environments (e.g. tests, SSR)
+  if (typeof process !== 'undefined' && process.env?.VITE_API_URL) {
+    return process.env.VITE_API_URL
+  }
+
+  return undefined
+}
+
 // Determine the API base URL based on environment
 const getApiBaseUrl = (): string => {
   if (typeof window === 'undefined') {
     // Server-side
-    return process.env.VITE_API_URL || 'http://localhost:3000'
+    return getEnvApiUrl() || 'http://localhost:3000'
   }
 
   // Client-side
-  if (process.env.VITE_API_URL) {
-    return process.env.VITE_API_URL
+  const clientEnvUrl = getEnvApiUrl()
+  if (clientEnvUrl) {
+    return clientEnvUrl
   }
 
   // Default to current domain's API
@@ -62,6 +77,8 @@ class AIApiService {
 
         if (status === 401 || status === 403) {
           errorMessage = data?.message || 'API 密钥无效或未授权'
+        } else if (status === 402) {
+          errorMessage = data?.message || 'AI 服务余额不足，请充值或更换提供方'
         } else if (status === 429) {
           errorMessage = 'API 请求过于频繁，请稍后再试'
         } else if (status === 400) {

@@ -1,166 +1,200 @@
 <template>
-  <div class="setup-shell">
-    <div class="ambient ambient-blue"></div>
-    <div class="ambient ambient-green"></div>
+  <div class="relative min-h-screen overflow-hidden px-6 py-16 md:px-12 lg:px-20">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand/25 blur-[140px]"></div>
+      <div class="absolute -bottom-20 -right-24 h-80 w-80 rounded-full bg-accent/25 blur-[140px]"></div>
+    </div>
 
-    <header class="shell-nav">
-      <div class="brand">
-        <div class="logo-mark">
-          <span></span>
+    <header class="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-4 rounded-full border border-white/60 bg-white/70 px-5 py-3 shadow-soft backdrop-blur">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/70 bg-white shadow-inner">
+          <span class="h-3.5 w-3.5 rounded-full bg-gradient-to-b from-brand to-brandDark"></span>
         </div>
         <div>
-          <h1>ADI WRITER</h1>
-          <p class="eyebrow">Story Studio</p>
+          <p class="text-[0.9rem] font-semibold uppercase tracking-[0.25em] text-dark">ADI WRITER</p>
+          <p class="text-sm font-medium text-[var(--text-light)]">Story Studio</p>
         </div>
       </div>
+      <p class="text-xs uppercase tracking-[0.4em] text-[var(--text-light)]">Designed for focus</p>
     </header>
 
-    <div class="layout">
-      <section class="hero-panel">
-        <div class="hero-head">
-          <p class="eyebrow">Designed for focus</p>
-          <h2>一个简单、纯净的专注写作空间</h2>
-          <p class="lede">
+    <div class="relative z-10 mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <section class="space-y-10 rounded-[36px] border border-white/60 bg-white/80 p-8 shadow-soft backdrop-blur" id="why-adi">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.35em] text-[var(--text-light)]">宁静写作栖息地</p>
+          <h2 class="text-[2.25rem] leading-tight text-dark md:text-[2.9rem] md:leading-[1.1]">
+            一个简单、纯净的专注写作空间
+          </h2>
+          <p class="max-w-2xl text-lg leading-relaxed text-[var(--text-light)] max-sm:leading-[1.8]">
             你是否曾有过天马行空的想法，却苦于无法用语言表达？使用 ADI WRITER，帮助你完成剧本、小说、诗歌、传记，书写你的故事。
           </p>
         </div>
 
-        <div class="hero-stats">
-          <article class="hero-card">
-            <span class="stat-value">60 秒</span>
-            <p>完成全部配置，马上开始创作。</p>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <article class="flex min-h-[190px] flex-col justify-between rounded-[24px] border border-white/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-light)]">配置耗时</p>
+            <strong class="block text-2xl font-semibold text-dark">60 秒</strong>
+            <p class="text-[var(--text-light)]">全部配置一次完成，立即开始创作。</p>
           </article>
-          <article class="hero-card">
-            <span class="stat-value">3+ 模型</span>
-            <p>OpenAI、Gemini、DeepSeek 与自定义随心切换。</p>
+          <article class="flex min-h-[190px] flex-col justify-between rounded-[24px] border border-white/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-light)]">模型数</p>
+            <strong class="block text-2xl font-semibold text-dark">3+ 模型</strong>
+            <p class="text-[var(--text-light)]">OpenAI、Gemini、DeepSeek 与自定义随心切换。</p>
           </article>
-          <article class="hero-card">
-            <span class="stat-value">100% 本地</span>
-            <p>API 密钥仅存在你的浏览器中。</p>
-          </article>
-          <article class="hero-card assurance-card">
-            <p class="tiny-label">创作保障</p>
-            <h4>关键步骤一目了然</h4>
-            <p class="assurance-copy">密钥与配置仅保留在本地，可随时清除。多家模型与自定义端点同一入口切换，流程不足 3 步，首访也能快速上手。</p>
+          <article class="flex min-h-[190px] flex-col justify-between rounded-[24px] border border-white/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-light)]">安全性</p>
+            <strong class="block text-2xl font-semibold text-dark">100% 本地</strong>
+            <p class="text-[var(--text-light)]">API 密钥仅存在你的浏览器中。</p>
           </article>
         </div>
 
-        <div class="hero-capabilities">
-          <div class="cap-item">
-            <span class="cap-icon">✦</span>
+        <article class="rounded-[30px] border border-black/5 bg-white/90 p-8 shadow-inner backdrop-blur">
+          <p class="text-xs uppercase tracking-[0.3em] text-[var(--text-light)]">创作保障</p>
+          <h3 class="mt-2 text-2xl font-semibold text-dark">关键步骤一目了然</h3>
+          <p class="mt-3 text-[var(--text-light)] leading-relaxed">
+            密钥与配置仅保留在本地，可随时清除。多家模型与自定义端点同一入口切换，流程不足 3 步，首访也能快速上手。
+          </p>
+        </article>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div class="flex gap-3 rounded-2xl border border-black/5 bg-white/85 px-6 py-5 shadow-inner">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5">✦</div>
             <div>
-              <strong>长篇扩写</strong>
-              <p>章节、剧作、传记一气呵成。</p>
+              <h4 class="font-semibold text-dark">长篇扩写</h4>
+              <p class="text-sm text-[var(--text-light)]">章节、剧作、传记逻辑流畅。</p>
             </div>
           </div>
-          <div class="cap-item">
-            <span class="cap-icon">✎</span>
+          <div class="flex gap-3 rounded-2xl border border-black/5 bg-white/85 px-6 py-5 shadow-inner">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5">✎</div>
             <div>
-              <strong>精准润色</strong>
-              <p>瞬时优化语气、节奏与逻辑。</p>
+              <h4 class="font-semibold text-dark">精准润色</h4>
+              <p class="text-sm text-[var(--text-light)]">瞬时优化语气、节奏与逻辑。</p>
             </div>
           </div>
-          <div class="cap-item">
-            <span class="cap-icon">▣</span>
+          <div class="flex gap-3 rounded-2xl border border-black/5 bg-white/85 px-6 py-5 shadow-inner">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5">▣</div>
             <div>
-              <strong>文稿管理</strong>
-              <p>写作版本与灵感井然有序。</p>
+              <h4 class="font-semibold text-dark">文稿管理</h4>
+              <p class="text-sm text-[var(--text-light)]">版本对比与灵感井然有序。</p>
             </div>
           </div>
-          <div class="cap-item">
-            <span class="cap-icon">⌘</span>
+          <div class="flex gap-3 rounded-2xl border border-black/5 bg-white/85 px-6 py-5 shadow-inner">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5">⌘</div>
             <div>
-              <strong>多语言</strong>
-              <p>跨语种协作与发布保持一致。</p>
+              <h4 class="font-semibold text-dark">多语言</h4>
+              <p class="text-sm text-[var(--text-light)]">跨语种协作与发布保持一致。</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="form-card quick-panel" id="quick-start">
-        <div class="form-header">
-          <p class="eyebrow">Quick start</p>
-          <h3>准备开始</h3>
-          <p>三步配置你偏好的模型，即刻投入写作。</p>
+      <section class="rounded-[32px] border border-white/70 bg-white/95 p-10 shadow-soft backdrop-blur" id="quick-start">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.35em] text-[var(--text-light)]">配置指引</p>
+          <h3 class="text-2xl font-semibold text-dark">连接你信任的模型</h3>
+          <p class="text-[var(--text-light)]">填入 API 凭据，仅保存在本地浏览器。</p>
         </div>
 
-        <form @submit.prevent="handleSubmit" class="form">
-          <div class="form-group">
-            <label for="provider">选择提供商</label>
-            <select v-model="selectedProvider" id="provider" class="input">
-              <option value="openai">OpenAI (GPT-4o Mini)</option>
-              <option value="gemini">Google Gemini (Gemini 1.5 Flash)</option>
-              <option value="deepseek">DeepSeek</option>
-              <option value="thirdparty">自定义服务</option>
-            </select>
+        <form @submit.prevent="handleSubmit" class="mt-10 space-y-8">
+          <div class="space-y-2">
+            <label for="provider" class="block text-sm font-semibold text-dark tracking-wide">选择提供商</label>
+            <div class="relative">
+              <select
+                v-model="selectedProvider"
+                id="provider"
+                class="w-full appearance-none rounded-[22px] border border-black/10 bg-white/90 px-5 py-3 text-base text-dark shadow-inner transition focus:border-brand/40 focus:ring-4 focus:ring-brand/10"
+              >
+                <option value="openai">OpenAI (GPT-4o Mini)</option>
+                <option value="gemini">Google Gemini (Gemini 1.5 Flash)</option>
+                <option value="deepseek">DeepSeek</option>
+                <option value="thirdparty">自定义服务</option>
+              </select>
+              <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-lg text-[var(--text-light)]">⌄</span>
+            </div>
           </div>
 
-          <div class="provider-hint">
-            <p class="eyebrow">{{ activeProvider.label }}</p>
-            <h4>{{ activeProvider.title }}</h4>
-            <p>{{ activeProvider.description }}</p>
+          <div class="rounded-[24px] border border-black/5 bg-gradient-to-br from-[#f7f9ff] to-[#eef4ff] p-6 shadow-inner">
+            <p class="text-xs uppercase tracking-[0.4em] text-[var(--text-light)]">{{ activeProvider.label }}</p>
+            <h4 class="mt-2 text-lg font-semibold text-dark">{{ activeProvider.title }}</h4>
+            <p class="text-sm text-[var(--text-light)]">{{ activeProvider.description }}</p>
             <a
               v-if="activeProvider.link"
               :href="activeProvider.link"
               target="_blank"
               rel="noreferrer"
+              class="mt-2 inline-flex text-sm font-semibold text-brand"
             >
               {{ activeProvider.linkLabel }}
             </a>
           </div>
 
-          <div class="form-group">
-            <label for="apikey">API 密钥</label>
+          <div class="space-y-2">
+            <label for="apikey" class="block text-sm font-semibold text-dark tracking-wide">API 密钥</label>
             <input
               v-model="apiKey"
               id="apikey"
               type="password"
-              class="input"
+              class="w-full rounded-[22px] border border-black/10 bg-white/90 px-5 py-3 text-base text-dark shadow-inner transition focus:border-brand/40 focus:ring-4 focus:ring-brand/10"
               placeholder="请输入您的 API 密钥"
               required
             />
-            <small>密钥仅保存在浏览器本地，任何时候都可以更换。</small>
+            <p class="text-sm text-[var(--text-light)]">密钥仅保存在浏览器本地，任何时候都可以更换。</p>
           </div>
 
-          <div v-if="selectedProvider === 'thirdparty'" class="form-group">
-            <label for="endpoint">API 端点</label>
+          <div
+            v-if="selectedProvider === 'thirdparty'"
+            class="space-y-2"
+          >
+            <label for="endpoint" class="block text-sm font-semibold text-dark">API 端点</label>
             <input
               v-model="customEndpoint"
               id="endpoint"
               type="url"
-              class="input"
+              class="w-full rounded-[22px] border border-black/10 bg-white/90 px-5 py-3 text-base text-dark shadow-inner transition focus:border-brand/40 focus:ring-4 focus:ring-brand/10"
               placeholder="https://api.example.com/v1/chat/completions"
               required
             />
           </div>
 
-          <div v-if="selectedProvider === 'thirdparty'" class="form-group">
-            <label for="model">模型名称</label>
+          <div
+            v-if="selectedProvider === 'thirdparty'"
+            class="space-y-2"
+          >
+            <label for="model" class="block text-sm font-semibold text-dark">模型名称</label>
             <input
               v-model="customModel"
               id="model"
               type="text"
-              class="input"
+              class="w-full rounded-[22px] border border-black/10 bg-white/90 px-5 py-3 text-base text-dark shadow-inner transition focus:border-brand/40 focus:ring-4 focus:ring-brand/10"
               placeholder="例如：gpt-4o-mini"
               required
             />
           </div>
 
-          <div class="checkbox-group">
-            <input v-model="agreeTerms" id="agree" type="checkbox" required />
+          <div class="flex items-start gap-3 rounded-[20px] border border-black/5 bg-black/5/30 px-5 py-3 text-sm leading-relaxed text-[var(--text-light)] sm:px-4">
+            <input
+              v-model="agreeTerms"
+              id="agree"
+              type="checkbox"
+              required
+              class="mt-1 h-5 w-5 rounded-md border border-black/20 text-brand focus:ring-brand"
+            />
             <label for="agree">
               我同意将 API 密钥安全地保存在本地，并阅读
-              <a href="#" @click.prevent>隐私政策</a>
+              <a href="#" @click.prevent class="font-semibold text-brand">隐私政策</a>
             </label>
           </div>
 
-          <button
-            type="submit"
-            class="primary-btn"
-            :disabled="!agreeTerms || !apiKey || (selectedProvider === 'thirdparty' && (!customEndpoint || !customModel))"
-          >
-            开始使用
-          </button>
+          <div class="space-y-4">
+            <button
+              type="submit"
+              class="w-full rounded-[18px] bg-gradient-to-r from-brand to-[#2b6aff] py-4 text-lg font-semibold text-white shadow-card transition hover:-translate-y-0.5 disabled:translate-y-0"
+              :disabled="!agreeTerms || !apiKey || (selectedProvider === 'thirdparty' && (!customEndpoint || !customModel))"
+            >
+              开始使用
+            </button>
+            <p class="text-center text-xs uppercase tracking-[0.35em] text-[var(--text-light)]">配置仅在本地保存</p>
+          </div>
         </form>
       </section>
     </div>
@@ -229,343 +263,3 @@ const handleSubmit = () => {
   appStore.saveConfig(config)
 }
 </script>
-
-<style scoped>
-.setup-shell {
-  position: relative;
-  min-height: 100vh;
-  padding: 56px clamp(20px, 6vw, 72px);
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  overflow: hidden;
-}
-
-.ambient {
-  position: absolute;
-  filter: blur(70px);
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-.ambient-blue {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.35), transparent 60%);
-  top: -160px;
-  left: -120px;
-}
-
-.ambient-green {
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(50, 205, 94, 0.32), transparent 60%);
-  bottom: -100px;
-  right: -80px;
-}
-
-.shell-nav {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.logo-mark {
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 18px 40px rgba(15, 23, 42, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-mark span {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #0071e3, #0051cc);
-}
-
-.brand h1 {
-  margin: 0;
-  font-size: 1.3rem;
-  letter-spacing: -0.02em;
-}
-
-.support-link {
-  color: var(--text-light);
-  font-weight: 600;
-}
-
-.layout {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-  gap: clamp(32px, 5vw, 80px);
-  align-items: start;
-}
-
-.hero-panel {
-  order: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.quick-panel {
-  order: 2;
-}
-
-.hero-head {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.hero-panel h2 {
-  font-size: clamp(2.2rem, 4vw, 2.8rem);
-  letter-spacing: -0.04em;
-}
-
-.hero-panel .lede {
-  color: var(--text-light);
-  max-width: 520px;
-}
-
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.hero-card {
-  padding: 18px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(244, 247, 255, 0.85));
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
-}
-
-.stat-value {
-  display: block;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.assurance-card {
-  background: rgba(249, 250, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.assurance-card h4 {
-  margin: 6px 0;
-}
-
-.assurance-copy {
-  color: var(--text-light);
-  margin: 6px 0 0;
-  line-height: 1.5;
-}
-
-.tiny-label {
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.7rem;
-  color: var(--text-light);
-  margin-bottom: 6px;
-}
-
-.hero-capabilities {
-  margin-top: 8px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
-}
-
-.cap-item {
-  display: flex;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
-.cap-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-}
-
-.cap-item strong {
-  display: block;
-  font-size: 0.92rem;
-  margin-bottom: 4px;
-}
-
-.cap-item p {
-  margin: 0;
-  color: var(--text-light);
-  font-size: 0.82rem;
-}
-
-.form-card {
-  padding: 32px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: var(--shadow-soft);
-}
-
-.quick-panel {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15);
-}
-
-.form-header h3 {
-  font-size: 1.6rem;
-  margin: 4px 0;
-}
-
-.form-header p {
-  color: var(--text-light);
-  margin-bottom: 16px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-weight: 600;
-}
-
-.input {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-.form-group small {
-  color: var(--text-light);
-  font-size: 0.85rem;
-}
-
-.provider-hint {
-  padding: 16px 18px;
-  border-radius: 18px;
-  background: rgba(239, 243, 255, 0.65);
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-.provider-hint h4 {
-  margin: 4px 0 6px;
-}
-
-.provider-hint a {
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.checkbox-group {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-
-.checkbox-group input {
-  margin-top: 4px;
-}
-
-.primary-btn {
-  width: 100%;
-  padding: 16px;
-  border-radius: 16px;
-  background: linear-gradient(120deg, #0071e3, #2b6aff);
-  color: white;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  box-shadow: 0 18px 32px rgba(0, 113, 227, 0.35);
-}
-
-.primary-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  font-size: 0.72rem;
-  color: var(--text-light);
-}
-
-@media (max-width: 960px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-panel {
-    order: 2;
-  }
-
-  .quick-panel {
-    order: 1;
-  }
-
-  .hero-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .form-card {
-    max-width: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .setup-shell {
-    padding: 32px 16px 48px;
-  }
-
-  .shell-nav {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .form-card {
-    padding: 24px;
-  }
-}
-</style>

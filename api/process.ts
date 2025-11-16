@@ -440,6 +440,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         statusCode = 401
         errorMessage = 'Invalid API key or unauthorized'
         errorCode = 'AUTH_ERROR'
+      } else if (error.response?.status === 402) {
+        statusCode = 402
+        errorMessage =
+          error.response?.data?.error?.message ||
+          'Insufficient balance for the selected provider, please recharge your account.'
+        errorCode = 'INSUFFICIENT_BALANCE'
       } else if (error.response?.status === 429) {
         statusCode = 429
         errorMessage = 'Rate limit exceeded'
